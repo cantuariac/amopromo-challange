@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from airports import urls as airports_urls
+from rest_framework.authtoken.views import obtain_auth_token
+
+from apps.airports import urls as airports_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('airports/', include(airports_urls))
+    path('airports/', include(airports_urls)),
+    path('auth-token/', obtain_auth_token)
 ]

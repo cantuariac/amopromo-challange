@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import hello
+from airports.views import hello, AirportsView
 
 urlpatterns = [
-    path('hello/', hello)
+    path('', AirportsView.as_view()),
+    path('hello/', hello),
 ]
