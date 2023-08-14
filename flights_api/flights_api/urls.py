@@ -19,9 +19,13 @@ from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
 from apps.airports import urls as airports_urls
+from apps.mock_airlines import urls as mock_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('auth-token/', obtain_auth_token),
+
     path('airports/', include(airports_urls)),
-    path('auth-token/', obtain_auth_token)
+    path('mock/', include(mock_urls)),
 ]

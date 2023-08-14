@@ -12,7 +12,6 @@ from airports.models import Airport
 def hello(request):
     return HttpResponse("Hello")
 
-
 class AirportsView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication, SessionAuthentication]
