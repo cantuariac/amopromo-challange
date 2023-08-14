@@ -1,7 +1,9 @@
-from django.urls import path
+from django.urls import path, register_converter
 
-from apps.mock_airlines.views import SearchView
+from apps.mock_airlines.views import SearchView, DateConverter
+
+register_converter(DateConverter, 'date')
 
 urlpatterns = [
-    path('search/<str:departure_airport>/<str:arrival_airport>/<str:departure_date>/<str:arrival_date>', SearchView.as_view()),
+    path('search/<str:departure_airport>/<str:arrival_airport>/<date:departure_date>/<date:arrival_date>', SearchView.as_view()),
 ]
