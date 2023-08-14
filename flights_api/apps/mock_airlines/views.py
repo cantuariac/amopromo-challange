@@ -2,12 +2,11 @@ from datetime import datetime
 
 from django.shortcuts import render
 
-import rest_framework
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.response import Response
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, NotFound, status
 
 from airports.models import Airport
 
@@ -29,6 +28,11 @@ class MockAirlinesService:
         departure_airport = Airport.objects.filter(iata=departure_code).first()
         arrival_airport = Airport.objects.filter(iata=arrival_code).first()
 
+        if not departure_airport:
+            raise NotFound(f"There is no airport with code: {departure_code}")
+        if not arrival_airport:
+            raise NotFound(f"There is no airport with code: {arrival_code}")
+
         return [str(departure_airport), str(arrival_airport)]
 
 class SearchView(APIView):
@@ -46,7 +50,7 @@ class SearchView(APIView):
             errors.append("'arrival_date' can't be earlier than 'departure_date'")
         
         if errors:
-            raise ValidationError(errors)
+            raise ValidationError({'detail':errors})
         
         options = MockAirlinesService.twoway_search(departure_airport, arrival_airport, departure_date, arrival_date)
 

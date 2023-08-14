@@ -18,8 +18,8 @@ from django.urls import path, include
 
 from rest_framework.authtoken.views import obtain_auth_token
 
-from apps.airports import urls as airports_urls
-from apps.mock_airlines import urls as mock_urls
+from airports import urls as airports_urls
+from mock_airlines import urls as mock_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -49,3 +49,13 @@ class SearchTest(TestCase):
         response = self.client.get(f"/mock/search/MOC/CNF/{today.strftime('%Y-%m-%d')}/{yesterday.strftime('%Y-%m-%d')}")
 
         self.assertContains(response, "'arrival_date' can't be earlier than 'departure_date'", status_code=400)
+
+    def test_airport_not_found(self):
+        today = datetime.today().date().strftime('%Y-%m-%d')
+        response = self.client.get(f"/mock/search/$$$/CNF/{today}/{today}")
+
+        self.assertContains(response, "There is no airport with code: $$$", status_code=404)
+        
+        response = self.client.get(f"/mock/search/MOC/$$$/{today}/{today}")
+
+        self.assertContains(response, "There is no airport with code: $$$", status_code=404)

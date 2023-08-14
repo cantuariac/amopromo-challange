@@ -1,6 +1,6 @@
 from django.urls import path, register_converter
 
-from apps.mock_airlines.views import SearchView, DateConverter
+from mock_airlines.views import SearchView, DateConverter
 
 register_converter(DateConverter, 'date')
 
