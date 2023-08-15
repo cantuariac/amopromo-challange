@@ -34,21 +34,21 @@ class SearchTest(TestCase):
     def test_same_airport(self):
         response = self.client.get("/mock/search/MOC/MOC/2023-08-15/2023-8-16")
 
-        self.assertContains(response, "'departure_airport' and 'arrival_airport' can't the same", status_code=400)
+        self.assertContains(response, "'departure_code' and 'arrival_code' can't the same", status_code=400)
 
-    def test_departure_date(self):
+    def test_outbound_date(self):
         today = datetime.today().date()
         yesterday = today - timedelta(days = 1)
         response = self.client.get(f"/mock/search/MOC/CNF/{yesterday.strftime('%Y-%m-%d')}/{today.strftime('%Y-%m-%d')}")
 
-        self.assertContains(response, "'departure_date' can't be earlier than today", status_code=400)
+        self.assertContains(response, "'outbound_date' can't be earlier than today", status_code=400)
     
-    def test_arrival_date(self):
+    def test_return_date(self):
         today = datetime.today().date()
         yesterday = today - timedelta(days = 1)
         response = self.client.get(f"/mock/search/MOC/CNF/{today.strftime('%Y-%m-%d')}/{yesterday.strftime('%Y-%m-%d')}")
 
-        self.assertContains(response, "'arrival_date' can't be earlier than 'departure_date'", status_code=400)
+        self.assertContains(response, "'return_date' can't be earlier than 'outbound_date'", status_code=400)
 
     def test_airport_not_found(self):
         today = datetime.today().date().strftime('%Y-%m-%d')

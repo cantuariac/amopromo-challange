@@ -1,4 +1,5 @@
 from datetime import datetime
+from itertools import product
 
 from django.shortcuts import render
 from django.http import HttpRequest
@@ -17,7 +18,10 @@ from airports.models import Airport
 
 import json
 def tmp_response(departure_code, arrival_code, date):
-    res = json.load(open(f"./apps/mock_airlines/{departure_code}-{arrival_code}-{DateConverter().to_url(date)}.json"))
+    try:
+        res = json.load(open(f"./apps/mock_airlines/{departure_code}-{arrival_code}-{DateConverter().to_url(date)}.json"))
+    except FileNotFoundError:
+        res = []
     return res
 
 class DateConverter:
@@ -30,6 +34,8 @@ class DateConverter:
     def to_url(self, value):
         return value.strftime(self.format)
 
+
+# from https://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
 from math import radians, cos, sin, asin, sqrt
 
 def haversine(lon1, lat1, lon2, lat2):
@@ -47,6 +53,10 @@ def haversine(lon1, lat1, lon2, lat2):
     c = 2 * asin(sqrt(a)) 
     r = 6371 # Radius of earth in kilometers. Use 3956 for miles. Determines return value units.
     return c * r
+
+def duration_from_timestamps(ts_start, ts_end):
+    tdelta = datetime.fromisoformat(ts_end) - datetime.fromisoformat(ts_start)
+    return tdelta.total_seconds() / 3600
 
 class MockAirlinesService:
 
@@ -79,12 +89,14 @@ class MockAirlinesService:
             }
 
             _range = haversine(departure_airport.longitude, departure_airport.latitude, arrival_airport.longitude, arrival_airport.latitude)
-            duration = 1.1
+            duration = duration_from_timestamps(flight["departure_time"], flight["arrival_time"])
             flight["meta"]={
                 "range": _range,
                 "cruise_speed_kmh": _range/duration,
                 "cost_per_km": total/_range
             }
+        
+        return flight_options
 
     @staticmethod
     def twoway_flights(departure_airport, arrival_airport, outbound_date, return_date):
@@ -93,7 +105,18 @@ class MockAirlinesService:
         return_flights = MockAirlinesService.oneway_flights(arrival_airport, departure_airport, return_date)
         
         flight_options = []
-        return flight_options
+        for out, ret in product(outbound_flights, return_flights):
+            if out["arrival_time"] < ret["departure_time"]:
+                flight_options.append({
+                    "outbound": out,
+                    "return": ret
+                })
+
+        return {
+            "outbound_date": outbound_date,
+            "return_date": return_date,
+            "options": flight_options
+            }
 
 class SearchView(APIView):
     permission_classes = [IsAuthenticated]
