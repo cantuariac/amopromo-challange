@@ -25,7 +25,7 @@ class SearchTest(TestCase):
             state="MG",
         )
 
-        user = User.objects.create_user('test_user', '', '*&g(*7g9g(G))')
+        user = User.objects.create_user("test_user", "", "*&g(*7g9g(G)")
         token = Token.objects.create(user=user)
 
         self.client = APIClient()
