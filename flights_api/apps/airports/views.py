@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -7,10 +6,6 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 from rest_framework.response import Response
 
 from airports.models import Airport
-
-
-def hello(request):
-    return HttpResponse("Hello")
 
 
 class AirportsView(APIView):
