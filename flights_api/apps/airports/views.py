@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import serializers
 
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -7,6 +8,10 @@ from rest_framework.response import Response
 
 from airports.models import Airport
 
+class AirportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Airport
+        fields = ["iata", "city", "state"]
 
 class AirportsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -14,5 +19,5 @@ class AirportsView(APIView):
     queryset = Airport.objects.all()
 
     def get(self, request):
-        content = [str(airport) for airport in self.queryset.all()]
+        content = [AirportSerializer(airport).data for airport in self.queryset.all()]
         return Response(content)
