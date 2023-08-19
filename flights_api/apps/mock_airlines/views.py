@@ -14,7 +14,7 @@ from mock_airlines.services import MockAirlinesService
 
 class FlightSearchView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    authentication_classes = [TokenAuthentication]
 
     def get(self, request:HttpRequest, departure_code, arrival_code, outbound_date, return_date):
 
