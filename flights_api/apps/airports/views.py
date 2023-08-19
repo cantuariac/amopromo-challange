@@ -15,7 +15,7 @@ class AirportSerializer(serializers.ModelSerializer):
 
 class AirportsView(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    authentication_classes = [TokenAuthentication]
     queryset = Airport.objects.all()
 
     def get(self, request):
