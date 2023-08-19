@@ -6,7 +6,10 @@ import json
 from airports.models import Airport
 from mock_airlines.utils import DateConverter, haversine, duration_from_timestamps
 
-def tmp_response(departure_code, arrival_code, date):
+def fake_response(departure_code, arrival_code, date):
+    """
+    Simulated response for MockAirlinesService.flight_search used for testing
+    """
     try:
         res = json.load(open(f"./apps/mock_airlines/sample-response-{departure_code}-{arrival_code}-{DateConverter().to_url(date)}.json"))
     except FileNotFoundError:
@@ -22,16 +25,15 @@ class MockAirlinesService:
         response = requests.get(url, auth=basic_auth)
 
         if not response.ok:
-            print(response.content)
-            #response.raise_for_status()
+            response.raise_for_status()
         else:
             return response.json()["options"]
 
     @staticmethod
     def oneway_flights(departure_airport:Airport, arrival_airport:Airport, flight_date:datetime):
-        # TODO: replace tmp_response with flight_search
+        # TODO: replace fake_response with flight_search
         flight_options = MockAirlinesService.flight_search(departure_airport.iata, arrival_airport.iata, flight_date)
-        #flight_options = tmp_response(departure_airport.iata, arrival_airport.iata, flight_date)
+        #flight_options = fake_response(departure_airport.iata, arrival_airport.iata, flight_date)
 
         for flight in flight_options:
             fare = flight["price"]["fare"]
@@ -39,7 +41,7 @@ class MockAirlinesService:
             total = fare+fee
             flight["price"] = {
                 "fare": fare,
-                "fee":fee,
+                "fee": fee,
                 "total": total
             }
 

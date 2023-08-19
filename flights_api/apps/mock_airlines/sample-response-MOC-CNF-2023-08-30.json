@@ -1,0 +1,148 @@
+{
+    "summary": {
+        "departure_date": "2023-08-30",
+        "from": {
+            "iata": "MOC",
+            "city": "Montes Claros",
+            "lat": -16.707779,
+            "lon": -43.817223,
+            "state": "MG"
+        },
+        "to": {
+            "iata": "CNF",
+            "city": "Belo Horizonte",
+            "lat": -19.632418,
+            "lon": -43.963215,
+            "state": "MG"
+        },
+        "currency": "BRL"
+    },
+    "options": [
+        {
+            "departure_time": "2023-08-30T12:20:00",
+            "arrival_time": "2023-08-30T12:41:00",
+            "price": {
+                "fare": 249.12,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "E-195",
+                "manufacturer": "Embraer"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T04:20:00",
+            "arrival_time": "2023-08-30T04:43:00",
+            "price": {
+                "fare": 218.18,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "A 320",
+                "manufacturer": "Airbus"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T09:00:00",
+            "arrival_time": "2023-08-30T09:29:00",
+            "price": {
+                "fare": 177.47,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "Dash 8",
+                "manufacturer": "Bombardier"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T18:45:00",
+            "arrival_time": "2023-08-30T19:06:00",
+            "price": {
+                "fare": 320.77,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "777-200",
+                "manufacturer": "Boeing"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T00:55:00",
+            "arrival_time": "2023-08-30T01:15:00",
+            "price": {
+                "fare": 281.69,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "737-800",
+                "manufacturer": "Boeing"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T21:15:00",
+            "arrival_time": "2023-08-30T21:57:00",
+            "price": {
+                "fare": 167.7,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "ATR-72",
+                "manufacturer": "Alenia"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        },
+        {
+            "departure_time": "2023-08-30T17:40:00",
+            "arrival_time": "2023-08-30T17:48:00",
+            "price": {
+                "fare": 5280.76,
+                "fees": 0.0,
+                "total": 0.0
+            },
+            "aircraft": {
+                "model": "F-16 Falcon",
+                "manufacturer": "Lockheed"
+            },
+            "meta": {
+                "range": 0,
+                "cruise_speed_kmh": 0,
+                "cost_per_km": 0.0
+            }
+        }
+    ]
+}
